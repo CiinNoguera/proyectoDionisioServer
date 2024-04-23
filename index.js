@@ -11,7 +11,7 @@ const port = 3434;
 
 const connectDB = async () => {
     try{
-        await(`mongodb+srv://${dbUser}${dbPass}@${dbHost}/`);
+        await mongoose.connect(`mongodb+srv://${dbUser}:${dbPass}@${dbHost}/`);
         app.listen(port, () => {
             console.log("============================");
             console.log("======= API DIONISIO =======");
