@@ -10,15 +10,16 @@ function createAccessToken(user) {
 
     //credenciales (estan detras del token)
     const payload = {
-        tpken_type: 'access',
+        token_type: 'access',
         user_id: user._id,
         iat: Date.now(),
-        exp: expToket.getTime(),
+        exp: expToken.getTime(),
     }
     //devolver token
     return jwt.sign(payload, JWT_KEY);
-}
+};
+
 
 module.exports = {
     createAccessToken,
-}
+};

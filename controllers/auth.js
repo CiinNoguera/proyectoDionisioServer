@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
+const jwt = require('../utils/jwt');
 
 async function register(req, res) {
     const { firstname, email, password, role} = req.body;
@@ -34,10 +35,38 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-    console.log('todo OK');
-    res.status(200).send({msg: 'controlador funcionando'})
+
+    // obtengo datos del lado del cliente
+    const { email, password } = req.body;
+
+    // validar datos
+    if(!email) {
+        res.status(400).send({msg: 'Todos los campos son obligatorios'});
+        return;
+    }
+    if (!password) {
+        res.status(400).send({msg: 'Todos los campos son obligatorios'});
+        return;
+    }
+
+    //verificar si existe el usuario
+    try{
+        // findOne método de mongoose para buscar
+         const user = await User.findOne({ email: email.toLowerCase()});
+             // Verificacion de contraseña
+         const check = await bcryptjs.compare(password, user.password);
+
+         if(!check) {
+            res.status(400).send({msg: 'Usuario o contraseña incorrectos'});
+         } else {
+            res.status(200).send({access: jwt.createAccessToken(user)});
+         }
+            
+    }catch(err) {
+        res.status(500).send({msg: "Usuario inexistente"});
+    } 
 }
-module.exports= {
+module.exports = {
     register,
     login,
 };
