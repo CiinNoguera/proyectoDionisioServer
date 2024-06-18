@@ -6,7 +6,7 @@ function createAccessToken(user) {
     //fecha expiracion token
     const expToken = new Date();
     //setHours establece las hs de un objeto - getHours devuelve la hs actual del objeto 
-    expToken.setHours(expToken.getHours() + 3);
+    expToken.setHours(expToken.getHours() + 1);
 
     //credenciales (estan detras del token)
     const payload = {
@@ -17,9 +17,17 @@ function createAccessToken(user) {
     }
     //devolver token
     return jwt.sign(payload, JWT_KEY);
-};
+}
+
+
+// decodifica el payload
+
+function decode(token) {
+    return jwt.decode(token, JWT_KEY, true);
+}
 
 
 module.exports = {
     createAccessToken,
+    decode,
 };
