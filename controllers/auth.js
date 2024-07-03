@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('../utils/jwt');
 
 async function register(req, res) {
-    const { firstname, email, password, role} = req.body;
+    const { firstName, email, password, role} = req.body;
 
     if(!email) {
         res.status(400).send({msg: 'Todos los campos son obligatorios'});
@@ -15,7 +15,7 @@ async function register(req, res) {
     }
 
     const user = new User({
-        firstname: firstname,
+        firstName: firstName,
         email: email.toLowerCase(),
         password: password,
         role: role
