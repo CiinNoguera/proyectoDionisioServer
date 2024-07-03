@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const opcionesMenu = mongoose.Schema({
+const menu = mongoose.Schema({
     title: String,
-    image: String,
     description: String,
-    precio: Number,
+    charge: Number,
+    image: String,
 });
 
-module.exports = mongoose.model('Plato', opcionesMenu);
+module.exports = mongoose.model('Menu', menu);
