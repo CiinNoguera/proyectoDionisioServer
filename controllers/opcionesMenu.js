@@ -4,11 +4,14 @@ const Menu = require('../models/opcionesMenu');
 async function createMenu(req, res) {
 
   const menu = new Menu(req.body);
+  
   console.log(menu);
+
  
   if(req.files.image) {
     const imagePath = image.getFileName(req.files.image);
     menu.image = imagePath;
+
 
   }
   
