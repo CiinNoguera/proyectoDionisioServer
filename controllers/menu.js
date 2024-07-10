@@ -1,20 +1,15 @@
 const image = require('../utils/getFileName');
-const Menu = require('../models/opcionesMenu');
+const Menu = require('../models/menu');
 
 async function createMenu(req, res) {
-
-  const menu = new Menu(req.body);
   
+  const menu = new Menu(req.body);
   console.log(menu);
 
- 
   if(req.files.image) {
     const imagePath = image.getFileName(req.files.image);
     menu.image = imagePath;
-
-
   }
-  
   try{
     await menu.save();
     res.status(200).send({ msg: 'Nuevo menú guardado'});
